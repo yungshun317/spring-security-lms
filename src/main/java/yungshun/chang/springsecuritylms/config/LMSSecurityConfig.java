@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class LMSSecurityConfig {
@@ -37,10 +39,9 @@ public class LMSSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/login").permitAll()
-                .requestMatchers("/").hasRole("user")
+                .requestMatchers("/").hasRole("USER")
                 .anyRequest().denyAll()
-        );
+        ).formLogin(withDefaults());;
 
         return http.build();
     }
