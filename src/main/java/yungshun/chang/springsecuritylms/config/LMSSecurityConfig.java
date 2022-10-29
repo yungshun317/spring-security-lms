@@ -38,10 +38,17 @@ public class LMSSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        /*
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/").hasRole("USER")
                 .anyRequest().denyAll()
-        ).formLogin(withDefaults());;
+        ).formLogin(withDefaults());
+         */
+
+        http.authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/").hasRole("USER")
+                .anyRequest().denyAll()
+        ).formLogin().loginPage("/plain-login").loginProcessingUrl("/authenticateTheUser").permitAll();
 
         return http.build();
     }
