@@ -10,6 +10,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -48,7 +49,8 @@ public class LMSSecurityConfig {
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/").hasRole("USER")
                 .anyRequest().denyAll()
-        ).formLogin().loginPage("/plain-login").loginProcessingUrl("/authenticateTheUser").permitAll();
+        ).formLogin(form -> form.loginPage("/plain-login").loginProcessingUrl("/authenticateTheUser").permitAll())
+                .logout(out -> out.permitAll());
 
         return http.build();
     }
