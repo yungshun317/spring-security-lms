@@ -10,7 +10,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -39,13 +38,14 @@ public class LMSSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        /*
+        /* Default login page
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/").hasRole("USER")
                 .anyRequest().denyAll()
         ).formLogin(withDefaults());
          */
 
+        // Custom login page
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/").hasRole("USER")
                 .anyRequest().denyAll()
