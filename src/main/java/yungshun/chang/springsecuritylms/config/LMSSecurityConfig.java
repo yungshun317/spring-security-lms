@@ -25,9 +25,13 @@ public class LMSSecurityConfig {
         // Add users for in memory authentication
         UserDetails user1 = User.withUsername("yungshun")
                 .password(encoder.encode("secret"))
-                .roles("USER")
+                .roles("ADMIN")
                 .build();
         UserDetails user2 = User.withUsername("Mai Shiranui")
+                .password(encoder.encode("secret"))
+                .roles("STAFF")
+                .build();
+        UserDetails user3 = User.withUsername("Lili Rochefort")
                 .password(encoder.encode("secret"))
                 .roles("USER")
                 .build();
@@ -48,9 +52,11 @@ public class LMSSecurityConfig {
         // Custom login page
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/").hasRole("USER")
+                        .requestMatchers("/staff/**").hasRole("STAFF")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
         ).formLogin(form -> form.loginPage("/plain-login").loginProcessingUrl("/authenticateTheUser").permitAll())
-                .logout(out -> out.permitAll());
+                .logout().permitAll();
 
         return http.build();
     }
