@@ -10,4 +10,14 @@ public class LMSController {
     public String home() {
         return "home";
     }
+
+    @GetMapping("/staff")
+    public String staffPage() {
+        return "staff";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "admin";
+    }
 }
