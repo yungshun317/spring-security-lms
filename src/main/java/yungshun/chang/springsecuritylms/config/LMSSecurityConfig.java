@@ -36,7 +36,7 @@ public class LMSSecurityConfig {
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(user1, user2);
+        return new InMemoryUserDetailsManager(user1, user2, user3);
     }
 
     @Bean
