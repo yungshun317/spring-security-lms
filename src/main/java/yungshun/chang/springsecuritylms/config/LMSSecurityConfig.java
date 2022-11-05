@@ -25,11 +25,11 @@ public class LMSSecurityConfig {
         // Add users for in memory authentication
         UserDetails user1 = User.withUsername("yungshun")
                 .password(encoder.encode("secret"))
-                .roles("ADMIN")
+                .roles("ADMIN", "STAFF", "USER")
                 .build();
         UserDetails user2 = User.withUsername("Mai Shiranui")
                 .password(encoder.encode("secret"))
-                .roles("STAFF")
+                .roles("STAFF", "USER")
                 .build();
         UserDetails user3 = User.withUsername("Lili Rochefort")
                 .password(encoder.encode("secret"))
@@ -56,7 +56,9 @@ public class LMSSecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
         ).formLogin(form -> form.loginPage("/plain-login").loginProcessingUrl("/authenticateTheUser").permitAll())
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied");
 
         return http.build();
     }
