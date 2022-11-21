@@ -46,6 +46,7 @@ VALUES
     ('Ahri','ROLE_USER'),
     ('Kula Diamond','ROLE_USER'),
     ('Kula Diamond','ROLE_STAFF'),
+    ('Morrigan Aensland','ROLE_USER'),
     ('Morrigan Aensland','ROLE_STAFF'),
     ('Morrigan Aensland','ROLE_ADMIN');
 

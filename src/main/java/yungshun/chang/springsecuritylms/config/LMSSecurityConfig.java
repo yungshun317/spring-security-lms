@@ -1,5 +1,6 @@
 package yungshun.chang.springsecuritylms.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,7 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -17,6 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class LMSSecurityConfig {
 
+    /* In-Memory Authentication
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
 
@@ -37,6 +43,22 @@ public class LMSSecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user1, user2, user3);
+    }
+     */
+
+    // JDBC Authentication
+    // Add a reference to `SecurityDataSource`
+    private DataSource securityDataSource;
+
+    @Autowired
+    public LMSSecurityConfig(DataSource securityDataSource) {
+        this.securityDataSource = securityDataSource;
+    }
+
+    @Bean
+    public UserDetailsManager users(DataSource securityDataSource) {
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(securityDataSource);
+        return users;
     }
 
     @Bean
