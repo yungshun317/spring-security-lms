@@ -22,8 +22,12 @@ import java.util.logging.Logger;
 public class LMSConfig {
 
     // Setup variable to hold the properties
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    // Constructor injection
+    public LMSConfig(Environment env) {
+        this.env = env;
+    }
 
     // Setup a logger for diagnostics
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -64,7 +68,7 @@ public class LMSConfig {
         securityDataSource.setUser(env.getProperty("jdbc.user"));
         securityDataSource.setPassword(env.getProperty("jdbc.password"));
 
-        // Set connetion pool props
+        // Set connection pool props
         securityDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
         securityDataSource.setInitialPoolSize(getIntProperty("connection.pool.minPoolSize"));
         securityDataSource.setInitialPoolSize(getIntProperty("connection.pool.maxPoolSize"));
@@ -79,7 +83,10 @@ public class LMSConfig {
         String propVal = env.getProperty(propName);
 
         // Now convert to `int`
-        int intPropVal = Integer.parseInt(propVal);
+        int intPropVal = 0;
+        if (propVal != null) {
+            intPropVal = Integer.parseInt(propVal);
+        }
 
         return intPropVal;
     }

@@ -47,18 +47,9 @@ public class LMSSecurityConfig {
      */
 
     // JDBC Authentication
-    // Add a reference to `SecurityDataSource`
-    private DataSource securityDataSource;
-
-    @Autowired
-    public LMSSecurityConfig(DataSource securityDataSource) {
-        this.securityDataSource = securityDataSource;
-    }
-
     @Bean
     public UserDetailsManager users(DataSource securityDataSource) {
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(securityDataSource);
-        return users;
+        return new JdbcUserDetailsManager(securityDataSource);
     }
 
     @Bean
