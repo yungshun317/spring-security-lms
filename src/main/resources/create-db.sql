@@ -10,7 +10,7 @@ USE `spring_security_lms`;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
                          `username` varchar(50) NOT NULL,
-                         `password` varchar(50) NOT NULL,
+                         `password` varchar(68) NOT NULL,
                          `enabled` tinyint(1) NOT NULL,
                          PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -21,9 +21,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users`
 VALUES
-    ('Morrigan Aensland','{noop}secret',1),
-    ('Kula Diamond','{noop}secret',1),
-    ('Ahri','{noop}secret',1);
+    ('Morrigan Aensland','{bcrypt}$2a$12$WfgOM3Z80PmFuqbsolwCCeBy5CBS0LCCpphspsM9fps9Emz4Ok/bK',1),
+    ('Kula Diamond','{bcrypt}$2a$12$WfgOM3Z80PmFuqbsolwCCeBy5CBS0LCCpphspsM9fps9Emz4Ok/bK',1),
+    ('Ahri','{bcrypt}$2a$12$WfgOM3Z80PmFuqbsolwCCeBy5CBS0LCCpphspsM9fps9Emz4Ok/bK',1);
 
 --
 -- Table structure for table `authorities`

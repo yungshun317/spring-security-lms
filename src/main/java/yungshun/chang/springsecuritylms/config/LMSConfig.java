@@ -30,7 +30,7 @@ public class LMSConfig {
     }
 
     // Setup a logger for diagnostics
-    private Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     // Define a bean for ViewResolver
     @Bean
